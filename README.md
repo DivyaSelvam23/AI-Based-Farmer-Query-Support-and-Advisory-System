@@ -1,63 +1,166 @@
-🌾 AI-Based Farmer Query Support and Advisory System
+AI-Based Farmer Query Support and Advisory System
 
-## 📖 Overview
-The AI-Based Farmer Query Support and Advisory System is an intelligent platform designed to help farmers by providing instant answers and recommendations for agricultural problems. Using Artificial Intelligence and Machine Learning, the system analyzes farmer queries and delivers accurate and timely farming advice.
+Project Overview
 
-## ❗ Problem Statement
-Farmers often face difficulties in accessing expert agricultural guidance regarding crop selection, pest control, disease management, fertilizer usage, irrigation, and weather conditions. This project provides a smart advisory solution to support better farming decisions.
+The AI-Based Farmer Query Support and Advisory System is an intelligent agricultural assistance platform designed to help farmers obtain accurate and timely guidance related to crop cultivation, pest management, fertilizer usage, irrigation planning, weather conditions, and market prices.
 
-## 🎯 Objectives
-- 🌱 Provide instant support for agricultural queries.
-- 🌾 Recommend suitable crops and fertilizers.
-- 🐛 Assist in pest and disease management.
-- ☁️ Deliver weather-based farming suggestions.
-- 📈 Improve crop productivity and farming efficiency.
+The platform combines Artificial Intelligence, Natural Language Processing (NLP), Machine Learning, and a centralized database to provide personalized recommendations based on farmer queries. Farmers can interact with the system through a mobile application, web portal, or chatbot using their preferred language.
 
-## 🛠️ Technology Used
-- 🐍 Python
-- 🌐 HTML, CSS, JavaScript
-- ⚡ Flask
-- 🗄️ MySQL
-- 🤖 Machine Learning
-- 📊 Pandas
-- 🔢 NumPy
-- 📚 Scikit-learn
+The system aims to improve agricultural productivity, reduce crop losses, support informed decision-making, and make expert farming knowledge accessible to farmers anytime and anywhere.
 
-## ✨ Features
-- 💬 Farmer Query Support
-- 🌱 Crop Recommendation
-- 🐛 Pest & Disease Advisory
-- ☁️ Weather Information Integration
-- 📱 User-Friendly Interface
-- 🤖 AI-Powered Recommendations
+The platform is specifically designed for small and medium-scale farmers who require quick, reliable, and affordable agricultural guidance without depending solely on physical visits to agricultural experts.
 
-## 🚀 Future Enhancements
-- 🎤 Voice-Based Query Support
-- 🌍 Regional Language Support
-- 📱 Mobile Application Development
-- 📸 Crop Disease Detection Using Images
-- 📡 Real-Time Agricultural Data Integration
+---
 
-## 📂 Project Structure
-```
-AI-Based-Farmer-Query-Support-and-Advisory-System/
-│
-├── dataset/
-├── models/
-├── static/
-├── templates/
-├── app.py
-├── requirements.txt
-└── README.md
-```
+Objective
 
-## 🎯 Expected Outcome
-This system helps farmers receive quick, accurate, and reliable agricultural advice, leading to improved crop yield, better decision-making, and reduced farming losses.
+To develop an AI-powered agricultural advisory platform that assists farmers by providing intelligent recommendations, crop guidance, pest diagnosis, weather updates, and market information through an easy-to-use digital system.
 
-## 🤝 Contribution
-Contributions, suggestions, and improvements are welcome!
+The system aims to:
 
-## 📜 License
-This project is developed for educational and academic purposes.
+- Provide instant responses to farmer queries.
+- Deliver crop-specific recommendations.
+- Assist in pest and disease identification.
+- Suggest suitable fertilizers and irrigation schedules.
+- Provide weather forecasting information.
+- Display current market prices of agricultural products.
+- Support multilingual communication.
+- Generate agricultural reports and insights.
+- Improve crop yield and farming efficiency.
+- Build a knowledge repository for future agricultural analytics.
 
-### 🌟 Empowering Farmers with AI for Smarter Agriculture 🌟
+---
+
+Problem Statement
+
+Farmers often face difficulties in obtaining timely and accurate information regarding crop management, pest control, weather conditions, fertilizer usage, and market trends.
+
+Traditional methods of seeking agricultural advice frequently result in:
+
+- Delayed expert consultation.
+- Incorrect farming decisions.
+- Crop diseases remaining undetected.
+- Improper fertilizer application.
+- Water management issues.
+- Limited access to agricultural knowledge.
+- Lack of real-time market information.
+- Reduced crop productivity.
+
+The absence of a centralized digital advisory system limits farmers' ability to make data-driven decisions.
+
+This project addresses these challenges by providing an AI-powered Farmer Query Support and Advisory System that delivers intelligent recommendations, automates advisory services, and supports effective farm management.
+
+---
+
+User & Module Identification
+
+The AI-Based Farmer Query Support and Advisory System serves Farmers, Agricultural Experts, Administrators, and Government Agricultural Officers.
+
+Farmers interact with the system through mobile applications, websites, or chatbots, while experts and administrators monitor activities, manage knowledge bases, and generate reports.
+
+---
+
+Modules List
+
+1. Farmer Registration Module
+
+- Farmer profile management
+- Farm details management
+
+2. Query Management Module
+
+- Submit farming-related queries
+- Query tracking and response management
+
+3. AI Advisory Module
+
+- AI-generated recommendations
+- Personalized farming guidance
+
+4. Crop Management Module
+
+- Crop information
+- Cultivation practices
+
+5. Pest & Disease Detection Module
+
+- Disease identification
+- Treatment recommendations
+
+6. Weather Forecast Module
+
+- Weather updates
+- Rainfall prediction
+
+7. Market Price Information Module
+
+- Crop market prices
+- Market trend analysis
+
+8. Dashboard & Reporting Module
+
+- Farmer activity reports
+- Agricultural analytics
+
+9. Authentication & Access Control Module
+
+- User login
+- Role-based access control
+
+---
+
+System Use Case Overview
+
+Actors
+
+- Farmer
+- Agricultural Expert
+- Administrator
+- Government Officer
+
+Major Use Cases
+
+- Register Farmer
+- Submit Query
+- Receive AI Recommendation
+- View Weather Updates
+- Check Market Prices
+- Detect Crop Diseases
+- Generate Reports
+- Manage Users
+
+---
+
+Database Requirement Analysis
+
+The AI-Based Farmer Query Support and Advisory System requires a centralized database to manage farmer information, crop records, queries, recommendations, weather data, disease records, and market information.
+
+The database supports AI-driven advisory services, report generation, analytics, and historical agricultural data management.
+
+---
+
+Table List
+
+Table Name| Description
+Users| Stores system user accounts
+Roles| Stores user roles and permissions
+Farmers| Stores farmer profile information
+Farms| Stores farm and land details
+Crops| Stores crop information
+Farmer_Queries| Stores farmer questions and requests
+AI_Recommendations| Stores AI-generated advice
+Diseases| Stores crop disease information
+Disease_Reports| Stores detected disease records
+Weather_Data| Stores weather forecast information
+Market_Prices| Stores crop market prices
+Notifications| Stores alerts and recommendations
+Reports| Stores generated reports
+Audit_Logs| Stores system activity history
+
+---
+
+Database Schema
+
+Rendered natively by GitHub via Mermaid. No plugins needed.
+
+The database follows a farmer-centric architecture where all farming activities, crop records, advisory services, and recommendations are linked to registered farmers and their farms.
