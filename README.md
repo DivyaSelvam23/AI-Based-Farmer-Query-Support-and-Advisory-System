@@ -153,7 +153,237 @@ The database supports AI-driven advisory services, report generation, analytics,
 
 ## **Database Schema**
 
-Rendered natively by GitHub via Mermaid. No plugins needed.
+The AI-Based Farmers Query Support and Advisory System requires a centralized PostgreSQL database to manage farmer profiles, crop information, agricultural queries, AI-generated recommendations, weather information, disease diagnosis records, and advisory services. The database is designed to support real-time query processing, AI-powered recommendations, report generation, and future agricultural analytics.
 
-The database follows a farmer-centric architecture where all farming activities, crop records, advisory services, and recommendations are linked to registered farmers and their farms.
+Entity Relationships
+
+- One Farmer can submit multiple Queries.
+- One Query can receive multiple Advisory Responses.
+- One Crop can be associated with multiple Farmers.
+- One Farmer can provide multiple Feedback Records.
+- One Weather Record can be linked to multiple Advisory Recommendations.
+- One Administrator can manage multiple system activities.
+
+Database Tables
+
+Table Name| Description
+Users| Stores user login and authentication details
+Roles| Stores user roles and permissions
+Farmers| Stores farmer profile information
+Crops| Stores crop details
+Queries| Stores farmer-submitted questions
+Query_Responses| Stores AI-generated advisory responses
+Weather_Data| Stores weather forecasts and historical data
+Soil_Data| Stores soil health information
+Disease_Records| Stores crop disease information
+Advisory_Records| Stores agricultural recommendations
+Notifications| Stores alerts and notifications
+Feedback| Stores farmer feedback
+Audit_Logs| Stores system activity logs
+
+---
+
+## **UI Wireframe Design**
+
+The user interface is designed to be simple, mobile-friendly, and accessible for farmers with minimal technical knowledge.
+
+Main Wireframes
+
+Login Screen
+
+- Mobile Number / Username
+- Password
+- Login Button
+- Register Option
+
+Farmer Dashboard
+
+- Total Queries Submitted
+- AI Recommendations
+- Weather Updates
+- Crop Health Status
+- Recent Notifications
+
+Query Submission Screen
+
+- Crop Selection
+- Query Category
+- Description Field
+- Image Upload Option
+- Submit Button
+
+Advisory Screen
+
+- Recommended Actions
+- Disease Solutions
+- Fertilizer Suggestions
+- Irrigation Guidance
+
+Weather Dashboard
+
+- Current Weather
+- Temperature
+- Rainfall Forecast
+- Humidity Information
+
+---
+
+## **Login & Dashboard UI Design**
+
+Login Interface
+
+The login interface provides secure access to Farmers, Agricultural Experts, and Administrators.
+
+Features
+
+- Secure Authentication
+- Password Encryption
+- Role-Based Access Control
+- Mobile-Friendly Design
+
+Dashboard Interface
+
+The dashboard acts as the central hub for agricultural information and recommendations.
+
+Dashboard Components
+
+Farmer Dashboard
+
+- Total Queries
+- Pending Responses
+- AI Recommendations
+- Weather Alerts
+- Disease Notifications
+- Crop Advisory Updates
+
+Administrator Dashboard
+
+- Registered Farmers
+- Active Queries
+- Advisory Statistics
+- System Reports
+- User Management
+
+---
+
+## **Navigation and Form Design**
+
+Navigation Menu
+
+- Dashboard
+- Submit Query
+- My Queries
+- Crop Advisory
+- Disease Detection
+- Weather Updates
+- Notifications
+- Reports
+- Profile
+- Logout
+
+Form Design
+
+Farmer Registration Form
+
+Fields:
+
+- Farmer Name
+- Mobile Number
+- Village
+- District
+- State
+- Farm Size
+- Main Crops
+
+Query Submission Form
+
+Fields:
+
+- Crop Name
+- Query Type
+- Description
+- Upload Crop Image
+- Submit
+
+Feedback Form
+
+Fields:
+
+- Rating
+- Comments
+- Submit Feedback
+
+---
+
+## **Design Review**
+
+The design review evaluates usability, performance, security, and scalability of the advisory system.
+
+Usability
+
+- Simple Interface
+- Easy Navigation
+- Mobile Accessibility
+- Multilingual Support
+
+Performance
+
+- Fast Query Processing
+- Real-Time Recommendations
+- Efficient Database Operations
+
+Security
+
+- User Authentication
+- Secure Data Storage
+- Role-Based Access Control
+- Activity Logging
+
+Scalability
+
+- Supports Large Numbers of Farmers
+- Expandable Crop Database
+- Future AI Model Integration
+
+Review Outcome
+
+The proposed design effectively supports farmer query management, crop advisory services, weather-based recommendations, disease diagnosis assistance, and AI-powered agricultural decision-making.
+
+---
+
+## **Frontend Environment Setup**
+
+Technology Stack
+
+Component| Technology
+Frontend Framework| React.js
+Styling| Tailwind CSS
+API Communication| Axios
+Routing| React Router
+Charts| Chart.js
+State Management| Redux Toolkit
+Build Tool| Vite
+
+Frontend Features
+
+- Farmer-Friendly Dashboard
+- AI Query Support Interface
+- Crop Disease Detection Screen
+- Weather Information Dashboard
+- Advisory Recommendation Panel
+- Reports & Analytics Dashboard
+- Mobile Responsive Design
+
+---
+
+## **Future Enhancements**
+
+- Voice-Based Query Support
+- Regional Language Assistance
+- Mobile Application Development
+- IoT Sensor Integration
+- Satellite-Based Crop Monitoring
+- Advanced Yield Prediction
+- AI Chatbot for Farmers
+
 
