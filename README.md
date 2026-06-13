@@ -1,4 +1,4 @@
-# AI-Based Farmer Query Support and Advisory System
+# 🌾AI-Based Farmer Query Support and Advisory System
 
 ## **Project Overview**
 
