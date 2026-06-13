@@ -1,4 +1,4 @@
-##🌾 AI-Based Farmer Query Support and Advisory System
+🌾 AI-Based Farmer Query Support and Advisory System
 
 ## 📖 Overview
 The AI-Based Farmer Query Support and Advisory System is an intelligent platform designed to help farmers by providing instant answers and recommendations for agricultural problems. Using Artificial Intelligence and Machine Learning, the system analyzes farmer queries and delivers accurate and timely farming advice.
