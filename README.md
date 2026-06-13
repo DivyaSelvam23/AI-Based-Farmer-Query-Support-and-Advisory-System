@@ -1,6 +1,6 @@
 AI-Based Farmer Query Support and Advisory System
 
-##Project Overview
+Project Overview
 
 The AI-Based Farmer Query Support and Advisory System is an intelligent agricultural assistance platform designed to help farmers obtain accurate and timely guidance related to crop cultivation, pest management, fertilizer usage, irrigation planning, weather conditions, and market prices.
 
@@ -12,7 +12,7 @@ The platform is specifically designed for small and medium-scale farmers who req
 
 ---
 
-##Objective
+Objective
 
 To develop an AI-powered agricultural advisory platform that assists farmers by providing intelligent recommendations, crop guidance, pest diagnosis, weather updates, and market information through an easy-to-use digital system.
 
@@ -31,7 +31,7 @@ The system aims to:
 
 ---
 
-##Problem Statement
+Problem Statement
 
 Farmers often face difficulties in obtaining timely and accurate information regarding crop management, pest control, weather conditions, fertilizer usage, and market trends.
 
@@ -52,7 +52,7 @@ This project addresses these challenges by providing an AI-powered Farmer Query 
 
 ---
 
-##User & Module Identification
+User & Module Identification
 
 The AI-Based Farmer Query Support and Advisory System serves Farmers, Agricultural Experts, Administrators, and Government Agricultural Officers.
 
@@ -60,7 +60,7 @@ Farmers interact with the system through mobile applications, websites, or chatb
 
 ---
 
-##Modules List
+Modules List
 
 1. Farmer Registration Module
 
@@ -109,7 +109,7 @@ Farmers interact with the system through mobile applications, websites, or chatb
 
 ---
 
-##System Use Case Overview
+System Use Case Overview
 
 Actors
 
@@ -131,7 +131,7 @@ Major Use Cases
 
 ---
 
-##Database Requirement Analysis
+Database Requirement Analysis
 
 The AI-Based Farmer Query Support and Advisory System requires a centralized database to manage farmer information, crop records, queries, recommendations, weather data, disease records, and market information.
 
@@ -139,7 +139,7 @@ The database supports AI-driven advisory services, report generation, analytics,
 
 ---
 
-##Table List
+Table List
 
 Table Name| Description
 Users| Stores system user accounts
@@ -159,7 +159,7 @@ Audit_Logs| Stores system activity history
 
 ---
 
-##Database Schema
+Database Schema
 
 Rendered natively by GitHub via Mermaid. No plugins needed.
 
