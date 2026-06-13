@@ -3,17 +3,17 @@
 ## 📖 Overview
 The AI-Based Farmer Query Support and Advisory System is an intelligent platform designed to help farmers by providing instant answers and recommendations for agricultural problems. Using Artificial Intelligence and Machine Learning, the system analyzes farmer queries and delivers accurate and timely farming advice.
 
-❗ Problem Statement
+##❗Problem Statement
 Farmers often face difficulties in accessing expert agricultural guidance regarding crop selection, pest control, disease management, fertilizer usage, irrigation, and weather conditions. This project provides a smart advisory solution to support better farming decisions.
 
-🎯 Objectives
+##🎯 Objectives
 - 🌱 Provide instant support for agricultural queries.
 - 🌾 Recommend suitable crops and fertilizers.
 - 🐛 Assist in pest and disease management.
 - ☁️ Deliver weather-based farming suggestions.
 - 📈 Improve crop productivity and farming efficiency.
 
-🛠️ Technology Used
+##🛠️ Technology Used
 - 🐍 Python
 - 🌐 HTML, CSS, JavaScript
 - ⚡ Flask
@@ -23,7 +23,7 @@ Farmers often face difficulties in accessing expert agricultural guidance regard
 - 🔢 NumPy
 - 📚 Scikit-learn
 
-✨ Features
+##✨ Features
 - 💬 Farmer Query Support
 - 🌱 Crop Recommendation
 - 🐛 Pest & Disease Advisory
@@ -31,14 +31,14 @@ Farmers often face difficulties in accessing expert agricultural guidance regard
 - 📱 User-Friendly Interface
 - 🤖 AI-Powered Recommendations
 
- 🚀 Future Enhancements
+ ##🚀 Future Enhancements
 - 🎤 Voice-Based Query Support
 - 🌍 Regional Language Support
 - 📱 Mobile Application Development
 - 📸 Crop Disease Detection Using Images
 - 📡 Real-Time Agricultural Data Integration
 
- 📂 Project Structure
+ ##📂 Project Structure
 ```
 AI-Based-Farmer-Query-Support-and-Advisory-System/
 │
@@ -51,13 +51,13 @@ AI-Based-Farmer-Query-Support-and-Advisory-System/
 └── README.md
 ```
 
- 🎯 Expected Outcome
+##🎯 Expected Outcome
 This system helps farmers receive quick, accurate, and reliable agricultural advice, leading to improved crop yield, better decision-making, and reduced farming losses.
 
-🤝 Contribution
+##🤝 Contribution
 Contributions, suggestions, and improvements are welcome!
 
- 📜 License
+ ##📜 License
 This project is developed for educational and academic purposes.
 
 🌟 Empowering Farmers with AI for Smarter Agriculture 🌟
