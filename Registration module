@@ -1,0 +1,159 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Farmer Registration</title>
+
+<style>
+*{
+    margin:0;
+    padding:0;
+    box-sizing:border-box;
+    font-family:Arial,sans-serif;
+}
+
+body{
+    background:linear-gradient(135deg,#2e7d32,#81c784);
+    min-height:100vh;
+    display:flex;
+    justify-content:center;
+    align-items:center;
+    padding:20px;
+}
+
+.container{
+    width:500px;
+    max-width:100%;
+    background:#fff;
+    padding:30px;
+    border-radius:15px;
+    box-shadow:0 10px 25px rgba(0,0,0,0.2);
+}
+
+.logo{
+    text-align:center;
+    font-size:50px;
+}
+
+h2{
+    text-align:center;
+    color:#2e7d32;
+    margin-bottom:20px;
+}
+
+.input-group{
+    margin-bottom:15px;
+}
+
+label{
+    display:block;
+    margin-bottom:5px;
+    font-weight:bold;
+}
+
+input,select{
+    width:100%;
+    padding:12px;
+    border:1px solid #ccc;
+    border-radius:8px;
+}
+
+input:focus,select:focus{
+    outline:none;
+    border-color:#2e7d32;
+}
+
+.btn{
+    width:100%;
+    padding:12px;
+    background:#2e7d32;
+    color:white;
+    border:none;
+    border-radius:8px;
+    cursor:pointer;
+    font-size:16px;
+}
+
+.btn:hover{
+    background:#1b5e20;
+}
+
+.login-link{
+    text-align:center;
+    margin-top:15px;
+}
+
+.login-link a{
+    color:#2e7d32;
+    text-decoration:none;
+    font-weight:bold;
+}
+</style>
+</head>
+
+<body>
+
+<div class="container">
+
+<div class="logo">🌾</div>
+
+<h2>Farmer Registration</h2>
+
+<form>
+
+<div class="input-group">
+<label>Full Name</label>
+<input type="text" placeholder="Enter full name" required>
+</div>
+
+<div class="input-group">
+<label>Email Address</label>
+<input type="email" placeholder="Enter email" required>
+</div>
+
+<div class="input-group">
+<label>Phone Number</label>
+<input type="tel" placeholder="Enter mobile number" required>
+</div>
+
+<div class="input-group">
+<label>State</label>
+<input type="text" placeholder="Enter your state" required>
+</div>
+
+<div class="input-group">
+<label>Domain Preference</label>
+<select required>
+<option value="">Select Domain</option>
+<option>Crop Management</option>
+<option>Government Schemes</option>
+<option>Agricultural Advisory</option>
+</select>
+</div>
+
+<div class="input-group">
+<label>Password</label>
+<input type="password" placeholder="Create password" required>
+</div>
+
+<div class="input-group">
+<label>Confirm Password</label>
+<input type="password" placeholder="Confirm password" required>
+</div>
+
+<button type="submit" class="btn">
+Register
+</button>
+
+</form>
+
+<div class="login-link">
+Already have an account?
+<a href="login.html">Login Here</a>
+</div>
+
+</div>
+
+</body>
+</html>
