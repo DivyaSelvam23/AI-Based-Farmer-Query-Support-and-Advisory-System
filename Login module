@@ -3,50 +3,80 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Farmer Query Advisory Login</title>
+<title>AI Farmer Advisory Login</title>
 
 <style>
 *{
     margin:0;
     padding:0;
     box-sizing:border-box;
-    font-family:'Segoe UI',sans-serif;
+    font-family:Arial, sans-serif;
 }
 
 body{
-    background:linear-gradient(135deg,#2E7D32,#66BB6A);
     height:100vh;
     display:flex;
     justify-content:center;
     align-items:center;
+    background:linear-gradient(135deg,#2e7d32,#81c784);
 }
 
-.login-container{
-    background:white;
-    width:380px;
-    padding:35px;
+.container{
+    width:900px;
+    max-width:95%;
+    background:#fff;
     border-radius:15px;
+    overflow:hidden;
+    display:flex;
     box-shadow:0 10px 25px rgba(0,0,0,0.2);
+}
+
+.left{
+    flex:1;
+    background:url('https://images.unsplash.com/photo-1500937386664-56d1dfef3854?w=1000')
+    center/cover;
+    color:white;
+    display:flex;
+    flex-direction:column;
+    justify-content:center;
+    align-items:center;
+    padding:30px;
     text-align:center;
 }
 
+.left h1{
+    font-size:32px;
+    margin-bottom:15px;
+}
+
+.left p{
+    font-size:18px;
+}
+
+.right{
+    flex:1;
+    padding:40px;
+}
+
 .logo{
-    font-size:60px;
+    text-align:center;
+    font-size:50px;
 }
 
 h2{
-    color:#2E7D32;
-    margin-bottom:10px;
-}
-
-.subtitle{
-    color:#666;
-    font-size:14px;
-    margin-bottom:25px;
+    text-align:center;
+    color:#2e7d32;
+    margin:10px 0 30px;
 }
 
 .input-group{
-    margin-bottom:15px;
+    margin-bottom:20px;
+}
+
+label{
+    display:block;
+    margin-bottom:6px;
+    font-weight:bold;
 }
 
 input{
@@ -59,73 +89,108 @@ input{
 
 input:focus{
     outline:none;
-    border-color:#4CAF50;
+    border-color:#2e7d32;
+}
+
+.options{
+    display:flex;
+    justify-content:space-between;
+    font-size:14px;
+    margin-bottom:20px;
 }
 
 .btn{
     width:100%;
-    background:#2E7D32;
-    color:white;
-    border:none;
     padding:12px;
-    border-radius:8px;
+    border:none;
+    background:#2e7d32;
+    color:black;
     font-size:16px;
+    border-radius:8px;
     cursor:pointer;
-    margin-top:10px;
 }
 
 .btn:hover{
-    background:#1B5E20;
+    background:#1b5e20;
 }
 
-.links{
-    margin-top:15px;
-    font-size:14px;
+.register{
+    text-align:center;
+    margin-top:20px;
 }
 
-.links a{
-    color:#2E7D32;
+.register a{
+    color:#2e7d32;
     text-decoration:none;
     font-weight:bold;
 }
-</style>
 
+@media(max-width:768px){
+    .container{
+        flex-direction:column;
+    }
+
+    .left{
+        height:250px;
+    }
+}
+</style>
 </head>
+
 <body>
 
-<div class="login-container">
+<div class="container">
 
-    <div class="logo">🌱</div>
+    <div class="left">
+        <h1>🌱 AI Farmer Advisory</h1>
+        <p>
+            Empowering Farmers with AI-Based
+            Agricultural Guidance & Support
+        </p>
+    </div>
 
-    <h2>AI Farmer Query Support</h2>
+    <div class="right">
 
-    <p class="subtitle">
-        Smart Agricultural Advisory System
-    </p>
+        <div class="logo">🌾</div>
 
-    <form>
+        <h2>Login</h2>
 
-        <div class="input-group">
-            <input type="email"
-            placeholder="Email Address"
-            required>
+        <form>
+
+            <div class="input-group">
+                <label>Email Address</label>
+                <input type="email"
+                       placeholder="Enter your email"
+                       required>
+            </div>
+
+            <div class="input-group">
+                <label>Password</label>
+                <input type="password"
+                       placeholder="Enter your password"
+                       required>
+            </div>
+
+            <div class="options">
+                <label>
+                    <input type="checkbox">
+                    Remember Me
+                </label>
+
+                <a href="#">Forgot Password?</a>
+            </div>
+
+            <button type="submit" class="btn">
+                Login
+            </button>
+
+        </form>
+
+        <div class="register">
+            New User?
+            <a href="#">Register Here</a>
         </div>
 
-        <div class="input-group">
-            <input type="password"
-            placeholder="Password"
-            required>
-        </div>
-
-        <button class="btn">
-            Login
-        </button>
-
-    </form>
-
-    <div class="links">
-        Don't have an account?
-        <a href="#">Register Here</a>
     </div>
 
 </div>
