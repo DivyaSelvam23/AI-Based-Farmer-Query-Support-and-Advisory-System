@@ -1,0 +1,383 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>AI Farmer Authentication</title>
+<style>
+*{box-sizing:border-box;margin:0;padding:0}
+body{
+  font-family:Arial,sans-serif;
+  background:linear-gradient(135deg,#e8f5e9,#f0f4f0);
+  min-height:100vh;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  padding:20px;
+}
+
+.container{
+  width:100%;
+  max-width:380px;
+  background:white;
+  padding:30px 28px;
+  border-radius:14px;
+  box-shadow:0 4px 20px rgba(0,0,0,0.12);
+}
+
+.logo{
+  font-size:36px;
+  text-align:center;
+  margin-bottom:6px;
+}
+
+h2{
+  color:#2e7d32;
+  text-align:center;
+  margin-bottom:20px;
+  font-size:20px;
+}
+
+.form-group{
+  margin-bottom:14px;
+}
+
+label{
+  display:block;
+  font-size:13px;
+  color:#555;
+  margin-bottom:4px;
+  font-weight:bold;
+}
+
+input{
+  width:100%;
+  padding:11px 13px;
+  border:1.5px solid #ccc;
+  border-radius:8px;
+  font-size:14px;
+  transition:border 0.2s;
+  outline:none;
+}
+
+input:focus{
+  border-color:#2e7d32;
+}
+
+input.error-field{
+  border-color:#c62828;
+}
+
+.error-msg{
+  color:#c62828;
+  font-size:12px;
+  margin-top:4px;
+  display:none;
+}
+
+.btn{
+  width:100%;
+  padding:12px;
+  background:#2e7d32;
+  color:white;
+  border:none;
+  border-radius:8px;
+  cursor:pointer;
+  font-size:15px;
+  font-weight:bold;
+  margin-top:6px;
+  transition:background 0.2s;
+}
+
+.btn:hover{background:#1b5e20}
+
+.btn-outline{
+  background:white;
+  color:#2e7d32;
+  border:2px solid #2e7d32;
+  margin-top:10px;
+}
+
+.btn-outline:hover{background:#f0f4f0}
+
+.switch-text{
+  text-align:center;
+  margin-top:16px;
+  font-size:13px;
+  color:#666;
+}
+
+.switch-text a{
+  color:#2e7d32;
+  font-weight:bold;
+  text-decoration:none;
+  cursor:pointer;
+}
+
+.switch-text a:hover{text-decoration:underline}
+
+.page{display:none}
+.active{display:block}
+
+/* Dashboard styles */
+.avatar{
+  width:64px;height:64px;
+  border-radius:50%;
+  background:#2e7d32;
+  color:white;
+  font-size:24px;
+  font-weight:bold;
+  display:flex;align-items:center;justify-content:center;
+  margin:0 auto 12px;
+}
+
+.welcome-name{
+  color:#1b5e20;
+  text-align:center;
+  font-size:20px;
+  font-weight:bold;
+  margin-bottom:4px;
+}
+
+.welcome-sub{
+  text-align:center;
+  color:#777;
+  font-size:13px;
+  margin-bottom:20px;
+}
+
+.info-card{
+  background:#e8f5e9;
+  border-radius:10px;
+  padding:14px 16px;
+  margin-bottom:14px;
+  font-size:14px;
+  color:#2e7d32;
+}
+
+.info-card span{font-size:20px;margin-right:8px}
+
+.tag{
+  display:inline-block;
+  background:#c8e6c9;
+  color:#1b5e20;
+  border-radius:12px;
+  padding:2px 10px;
+  font-size:12px;
+  font-weight:bold;
+  margin-left:6px;
+}
+
+.strength-bar{
+  height:4px;
+  border-radius:4px;
+  margin-top:6px;
+  transition:all 0.3s;
+  background:#eee;
+}
+</style>
+</head>
+<body>
+
+<!-- REGISTER -->
+<div id="register" class="container page active">
+  <div class="logo">🌾</div>
+  <h2>Farmer Registration</h2>
+
+  <div class="form-group">
+    <label>Full Name</label>
+    <input type="text" id="regName" placeholder="Enter your full name">
+    <div class="error-msg" id="err-name">Please enter your full name.</div>
+  </div>
+
+  <div class="form-group">
+    <label>Email Address</label>
+    <input type="email" id="regEmail" placeholder="your@email.com">
+    <div class="error-msg" id="err-email">Enter a valid email address.</div>
+  </div>
+
+  <div class="form-group">
+    <label>Password</label>
+    <input type="password" id="regPass" placeholder="Min. 6 characters" oninput="checkStrength(this.value)">
+    <div class="strength-bar" id="strengthBar"></div>
+    <div class="error-msg" id="err-pass">Password must be at least 6 characters.</div>
+  </div>
+
+  <div class="form-group">
+    <label>Confirm Password</label>
+    <input type="password" id="regConfirm" placeholder="Repeat your password">
+    <div class="error-msg" id="err-confirm">Passwords do not match.</div>
+  </div>
+
+  <button class="btn" onclick="register()">Create Account</button>
+
+  <div class="switch-text">
+    Already registered? <a onclick="showPage('login')">Login here</a>
+  </div>
+</div>
+
+<!-- LOGIN -->
+<div id="login" class="container page">
+  <div class="logo">🌾</div>
+  <h2>Farmer Login</h2>
+
+  <div class="form-group">
+    <label>Email Address</label>
+    <input type="email" id="loginEmail" placeholder="your@email.com">
+    <div class="error-msg" id="err-lemail">Please enter your email.</div>
+  </div>
+
+  <div class="form-group">
+    <label>Password</label>
+    <input type="password" id="loginPass" placeholder="Your password">
+    <div class="error-msg" id="err-lpass">Please enter your password.</div>
+  </div>
+
+  <div class="error-msg" id="err-login" style="display:none;margin-bottom:8px;font-size:13px">
+    ❌ Invalid email or password.
+  </div>
+
+  <button class="btn" onclick="login()">Login</button>
+
+  <div class="switch-text">
+    New farmer? <a onclick="showPage('register')">Register here</a>
+  </div>
+</div>
+
+<!-- DASHBOARD -->
+<div id="dashboard" class="container page">
+  <div class="avatar" id="avatarInitials">F</div>
+  <div class="welcome-name" id="welcomeName">Welcome!</div>
+  <div class="welcome-sub" id="welcomeEmail"></div>
+
+  <div class="info-card"><span>🌱</span> Crop Management Tips Available</div>
+  <div class="info-card"><span>🏛️</span> Government Schemes Updated</div>
+  <div class="info-card"><span>🐛</span> Pest Control Advisory Ready</div>
+
+  <button class="btn" onclick="goToAdvisory()">Ask AI Farming Questions →</button>
+  <button class="btn btn-outline" onclick="logout()">Logout</button>
+</div>
+
+<script>
+function showPage(page){
+  document.querySelectorAll('.page').forEach(p => p.classList.remove('active'));
+  document.getElementById(page).classList.add('active');
+  // Clear errors when switching pages
+  document.querySelectorAll('.error-msg').forEach(e => e.style.display='none');
+  document.querySelectorAll('input').forEach(i => i.classList.remove('error-field'));
+}
+
+function showErr(id, inputId){
+  const errEl = document.getElementById(id);
+  if(errEl) errEl.style.display = 'block';
+  if(inputId){
+    const inp = document.getElementById(inputId);
+    if(inp) inp.classList.add('error-field');
+  }
+}
+
+function clearErr(id, inputId){
+  const errEl = document.getElementById(id);
+  if(errEl) errEl.style.display = 'none';
+  if(inputId){
+    const inp = document.getElementById(inputId);
+    if(inp) inp.classList.remove('error-field');
+  }
+}
+
+function checkStrength(val){
+  const bar = document.getElementById('strengthBar');
+  if(val.length === 0){ bar.style.background='#eee'; bar.style.width='100%'; return; }
+  if(val.length < 4){ bar.style.background='#e53935'; }
+  else if(val.length < 6){ bar.style.background='#fb8c00'; }
+  else if(val.length < 10){ bar.style.background='#43a047'; }
+  else { bar.style.background='#1b5e20'; }
+}
+
+function register(){
+  // Clear all errors first
+  ['err-name','err-email','err-pass','err-confirm'].forEach(id => {
+    document.getElementById(id).style.display = 'none';
+  });
+  ['regName','regEmail','regPass','regConfirm'].forEach(id => {
+    document.getElementById(id).classList.remove('error-field');
+  });
+
+  const name    = document.getElementById('regName').value.trim();
+  const email   = document.getElementById('regEmail').value.trim();
+  const pass    = document.getElementById('regPass').value;
+  const confirm = document.getElementById('regConfirm').value;
+
+  let valid = true;
+
+  if(!name){ showErr('err-name','regName'); valid=false; }
+  if(!email || !/\S+@\S+\.\S+/.test(email)){ showErr('err-email','regEmail'); valid=false; }
+  if(pass.length < 6){ showErr('err-pass','regPass'); valid=false; }
+  if(pass !== confirm){ showErr('err-confirm','regConfirm'); valid=false; }
+  if(!valid) return;
+
+  // Check duplicate email
+  const users = JSON.parse(localStorage.getItem('farmerUsers')) || [];
+  if(users.find(u => u.email === email)){
+    showErr('err-email','regEmail');
+    document.getElementById('err-email').textContent = 'Email already registered. Please login.';
+    return;
+  }
+
+  users.push({ name, email, password: pass });
+  localStorage.setItem('farmerUsers', JSON.stringify(users));
+
+  alert('✅ Registration successful! Please login.');
+  showPage('login');
+}
+
+function login(){
+  clearErr('err-lemail','loginEmail');
+  clearErr('err-lpass','loginPass');
+  document.getElementById('err-login').style.display = 'none';
+
+  const email = document.getElementById('loginEmail').value.trim();
+  const pass  = document.getElementById('loginPass').value;
+
+  let valid = true;
+  if(!email){ showErr('err-lemail','loginEmail'); valid=false; }
+  if(!pass){  showErr('err-lpass','loginPass');   valid=false; }
+  if(!valid) return;
+
+  const users = JSON.parse(localStorage.getItem('farmerUsers')) || [];
+  const user  = users.find(u => u.email===email && u.password===pass);
+
+  if(!user){
+    document.getElementById('err-login').style.display = 'block';
+    return;
+  }
+
+  sessionStorage.setItem('currentFarmer', JSON.stringify(user));
+  loadDashboard(user);
+}
+
+function loadDashboard(user){
+  const initials = user.name.split(' ').map(w=>w[0]).join('').toUpperCase().slice(0,2);
+  document.getElementById('avatarInitials').textContent = initials;
+  document.getElementById('welcomeName').textContent   = 'Welcome, ' + user.name + '!';
+  document.getElementById('welcomeEmail').textContent  = user.email;
+  showPage('dashboard');
+}
+
+function logout(){
+  sessionStorage.removeItem('currentFarmer');
+  showPage('login');
+}
+
+function goToAdvisory(){
+  // Link to your main advisory app if separate
+  alert('Navigate to your AI Advisory page here!');
+}
+
+window.onload = function(){
+  const user = JSON.parse(sessionStorage.getItem('currentFarmer'));
+  if(user) loadDashboard(user);
+};
+</script>
+</body>
+</html>
