@@ -172,7 +172,12 @@ textarea{resize:vertical;min-height:90px}
 </div>
 
 <script>
-const STORAGE_KEYS = {farmer:'farmer_adv_user', questions:'farmer_adv_questions'};
+// Backend base URL — change this if you deploy the server elsewhere
+const API_BASE = 'http://localhost:3000';
+
+// farmers is a LIST (array) of all registered farmers, not a single object.
+// currentUser holds the email of whoever is logged in right now.
+const STORAGE_KEYS = {farmers:'farmer_adv_users', questions:'farmer_adv_questions', currentUser:'farmer_adv_current'};
 
 function showPage(page){
   document.querySelectorAll('.page').forEach(p=>p.classList.remove('active'));
@@ -188,10 +193,17 @@ function hideError(id){
   document.getElementById(id).style.display='none';
 }
 
+function getFarmers(){
+  return JSON.parse(localStorage.getItem(STORAGE_KEYS.farmers) || '[]');
+}
+function saveFarmers(farmers){
+  localStorage.setItem(STORAGE_KEYS.farmers, JSON.stringify(farmers));
+}
+
 function register(){
   hideError('reg-error');
   const name=document.getElementById('reg-name').value.trim();
-  const email=document.getElementById('reg-email').value.trim();
+  const email=document.getElementById('reg-email').value.trim().toLowerCase();
   const phone=document.getElementById('reg-phone').value.trim();
   const state=document.getElementById('reg-state').value.trim();
   const domain=document.getElementById('reg-domain').value;
@@ -211,26 +223,39 @@ function register(){
     return showError('reg-error','Passwords do not match.');
   }
 
-  const farmer={name,email,phone,state,domain,pass};
-  localStorage.setItem(STORAGE_KEYS.farmer,JSON.stringify(farmer));
+  const farmers = getFarmers();
+  if(farmers.some(f => f.email === email)){
+    return showError('reg-error','This email is already registered. Please login instead.');
+  }
+
+  farmers.push({name,email,phone,state,domain,pass});
+  saveFarmers(farmers);
+
   alert('Registration successful! Please login.');
+  document.getElementById('reg-name').value='';
+  document.getElementById('reg-email').value='';
+  document.getElementById('reg-phone').value='';
+  document.getElementById('reg-state').value='';
+  document.getElementById('reg-domain').value='';
+  document.getElementById('reg-pass').value='';
+  document.getElementById('reg-confirm').value='';
   showPage('login');
 }
 
 function login(){
   hideError('login-error');
-  const email=document.getElementById('login-email').value.trim();
+  const email=document.getElementById('login-email').value.trim().toLowerCase();
   const pass=document.getElementById('login-pass').value;
-  const farmer=JSON.parse(localStorage.getItem(STORAGE_KEYS.farmer)||'null');
+
+  const farmers = getFarmers();
+  const farmer = farmers.find(f => f.email === email && f.pass === pass);
 
   if(!farmer){
-    return showError('login-error','No account found. Please register first.');
-  }
-  if(email!==farmer.email||pass!==farmer.pass){
-    return showError('login-error','Incorrect email or password.');
+    return showError('login-error','Incorrect email or password, or no account found.');
   }
 
   sessionStorage.setItem('loggedIn','true');
+  localStorage.setItem(STORAGE_KEYS.currentUser, email);
   loadDashboard(farmer);
   showPage('dashboard');
   updateNav(true);
@@ -246,6 +271,7 @@ function loadDashboard(farmer){
 
 function logout(){
   sessionStorage.removeItem('loggedIn');
+  localStorage.removeItem(STORAGE_KEYS.currentUser);
   updateNav(false);
   showPage('home');
 }
@@ -253,6 +279,12 @@ function logout(){
 function updateNav(loggedIn){
   document.getElementById('dashLink').style.display=loggedIn?'inline':'none';
   document.getElementById('logoutLink').style.display=loggedIn?'inline':'none';
+}
+
+function getCurrentFarmer(){
+  const email = localStorage.getItem(STORAGE_KEYS.currentUser);
+  const farmers = getFarmers();
+  return farmers.find(f => f.email === email) || {};
 }
 
 async function askQuestion(){
@@ -266,30 +298,23 @@ async function askQuestion(){
   loader.style.display='flex';
 
   try{
-    const farmer=JSON.parse(localStorage.getItem(STORAGE_KEYS.farmer)||'{}');
-    const systemPrompt=`You are an expert agricultural advisor for Indian farmers. 
-Answer farming questions clearly and practically. 
-The farmer is from ${farmer.state||'India'} and is interested in ${farmer.domain||'general farming'}.
-Keep answers helpful, concise (3-5 sentences), and practical.
-Include relevant local context when possible.
-If the question is not related to farming/agriculture, politely redirect them.`;
+    const farmer = getCurrentFarmer();
 
-    const response=await fetch('https://api.anthropic.com/v1/messages',{
+    // Calls our own local backend (server.js), which holds the real API key.
+    const response = await fetch(`${API_BASE}/api/ask`,{
       method:'POST',
       headers:{'Content-Type':'application/json'},
       body:JSON.stringify({
-        model:'claude-sonnet-4-6',
-        max_tokens:1000,
-        system:systemPrompt,
-        messages:[{role:'user',content:q}]
+        question: q,
+        state: farmer.state,
+        domain: farmer.domain
       })
     });
 
-    const data=await response.json();
-    if(!response.ok) throw new Error(data.error?.message||'API error');
-    const answer=data.content.map(b=>b.type==='text'?b.text:'').join('');
+    const data = await response.json();
+    if(!response.ok) throw new Error(data.error || 'API error');
 
-    saveQA(q,answer,farmer.domain||'General');
+    saveQA(q, data.answer, farmer.domain||'General', farmer.email);
     document.getElementById('question').value='';
   } catch(err){
     showError('ask-error','Could not get answer. Please try again. ('+err.message+')');
@@ -299,15 +324,17 @@ If the question is not related to farming/agriculture, politely redirect them.`;
   }
 }
 
-function saveQA(question,answer,domain){
+function saveQA(question,answer,domain,ownerEmail){
   const questions=JSON.parse(localStorage.getItem(STORAGE_KEYS.questions)||'[]');
-  questions.unshift({question,answer,domain,time:new Date().toLocaleString()});
+  questions.unshift({question,answer,domain,ownerEmail,time:new Date().toLocaleString()});
   localStorage.setItem(STORAGE_KEYS.questions,JSON.stringify(questions));
   loadQuestions();
 }
 
 function loadQuestions(){
-  const questions=JSON.parse(localStorage.getItem(STORAGE_KEYS.questions)||'[]');
+  const currentEmail = localStorage.getItem(STORAGE_KEYS.currentUser);
+  const all=JSON.parse(localStorage.getItem(STORAGE_KEYS.questions)||'[]');
+  const questions = all.filter(q => q.ownerEmail === currentEmail);
   const list=document.getElementById('questionList');
   if(!questions.length){
     list.innerHTML='<div class="empty">No questions yet. Ask your first question above!</div>';
@@ -324,8 +351,8 @@ function loadQuestions(){
 
 window.addEventListener('load',()=>{
   if(sessionStorage.getItem('loggedIn')==='true'){
-    const farmer=JSON.parse(localStorage.getItem(STORAGE_KEYS.farmer)||'null');
-    if(farmer){
+    const farmer=getCurrentFarmer();
+    if(farmer && farmer.email){
       loadDashboard(farmer);
       showPage('dashboard');
       updateNav(true);
