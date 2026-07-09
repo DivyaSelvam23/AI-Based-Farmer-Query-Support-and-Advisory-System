@@ -1,2 +1,1 @@
-ANTHROPIC_API_KEY=your-api-key-here
-PORT=3000
+process.env.ANTHROPIC_API_KEY
