@@ -47,12 +47,6 @@ textarea{resize:vertical;min-height:90px}
 .qa-domain{font-size:11px;color:#888;margin-bottom:6px;text-transform:uppercase;letter-spacing:0.5px}
 .qa-timestamp{font-size:11px;color:#aaa;margin-top:6px}
 
-.loading{display:flex;align-items:center;gap:8px;color:#2e7d32;font-size:14px;padding:10px 0}
-.dot{width:8px;height:8px;border-radius:50%;background:#2e7d32;animation:bounce 1s infinite alternate}
-.dot:nth-child(2){animation-delay:.2s}
-.dot:nth-child(3){animation-delay:.4s}
-@keyframes bounce{from{opacity:0.3;transform:scale(0.8)}to{opacity:1;transform:scale(1.2)}}
-
 .welcome-banner{background:linear-gradient(135deg,#e8f5e9,#c8e6c9);border-radius:12px;padding:18px;margin-bottom:18px;display:flex;align-items:center;gap:14px}
 .avatar{width:52px;height:52px;border-radius:50%;background:#2e7d32;display:flex;align-items:center;justify-content:center;font-size:20px;color:white;font-weight:bold;flex-shrink:0}
 .welcome-text h3{color:#1b5e20;margin-bottom:4px}
@@ -60,6 +54,8 @@ textarea{resize:vertical;min-height:90px}
 
 .empty{text-align:center;color:#999;padding:20px 0;font-size:14px}
 .tag{display:inline-block;padding:3px 10px;border-radius:12px;font-size:11px;font-weight:bold;background:#e8f5e9;color:#2e7d32;margin-right:6px}
+
+.offline-notice{background:#e8f5e9;border:1px solid #81c784;border-radius:10px;padding:12px 14px;margin-bottom:16px;font-size:12px;color:#1b5e20}
 </style>
 </head>
 <body>
@@ -76,7 +72,7 @@ textarea{resize:vertical;min-height:90px}
 <div id="home" class="page active">
   <div class="card hero">
     <h1>🌾 AI Farmer Advisory</h1>
-    <p>Get instant, expert AI-powered answers to all your farming questions — crop care, government schemes, pest control, and more.</p>
+    <p>Get instant answers to your farming questions — crop care, government schemes, pest control, and more. Works fully offline, no internet needed.</p>
     <div class="feature-grid" style="margin-top:20px">
       <div class="feature-item"><span>🌱</span>Crop Management</div>
       <div class="feature-item"><span>🏛️</span>Govt Schemes</div>
@@ -152,17 +148,17 @@ textarea{resize:vertical;min-height:90px}
     </div>
   </div>
 
+  <div class="offline-notice">
+    ✅ This app runs fully offline. Answers come from a built-in local knowledge base — no internet or API connection required.
+  </div>
+
   <div class="card">
     <h3>Ask a Farming Question</h3>
     <label>Your Question</label>
-    <textarea id="question" placeholder="e.g. What is the best fertilizer for wheat in black soil? How to control aphids on tomatoes?"></textarea>
+    <textarea id="question" placeholder="e.g. What is the best fertilizer for wheat? How to control pests on tomatoes?"></textarea>
 
-    <div id="loadingIndicator" style="display:none" class="loading">
-      <div class="dot"></div><div class="dot"></div><div class="dot"></div>
-      <span>Getting AI answer...</span>
-    </div>
     <div class="error" id="ask-error"></div>
-    <button class="btn" id="askBtn" onclick="askQuestion()">Get AI Answer ✦</button>
+    <button class="btn" id="askBtn" onclick="askQuestion()">Get Answer ✦</button>
   </div>
 
   <div class="card">
@@ -172,11 +168,6 @@ textarea{resize:vertical;min-height:90px}
 </div>
 
 <script>
-// Backend base URL — change this if you deploy the server elsewhere
-const API_BASE = 'http://localhost:3000';
-
-// farmers is a LIST (array) of all registered farmers, not a single object.
-// currentUser holds the email of whoever is logged in right now.
 const STORAGE_KEYS = {farmers:'farmer_adv_users', questions:'farmer_adv_questions', currentUser:'farmer_adv_current'};
 
 function showPage(page){
@@ -287,41 +278,52 @@ function getCurrentFarmer(){
   return farmers.find(f => f.email === email) || {};
 }
 
-async function askQuestion(){
-  const q=document.getElementById('question').value.trim();
-  hideError('ask-error');
-  if(!q) return showError('ask-error','Please enter a question.');
+// OFFLINE, RULE-BASED ANSWER ENGINE — no internet, no API, no fetch calls.
+function askQuestion() {
+  const q = document.getElementById("question").value.toLowerCase().trim();
 
-  const btn=document.getElementById('askBtn');
-  const loader=document.getElementById('loadingIndicator');
-  btn.disabled=true;
-  loader.style.display='flex';
-
-  try{
-    const farmer = getCurrentFarmer();
-
-    // Calls our own local backend (server.js), which holds the real API key.
-    const response = await fetch(`${API_BASE}/api/ask`,{
-      method:'POST',
-      headers:{'Content-Type':'application/json'},
-      body:JSON.stringify({
-        question: q,
-        state: farmer.state,
-        domain: farmer.domain
-      })
-    });
-
-    const data = await response.json();
-    if(!response.ok) throw new Error(data.error || 'API error');
-
-    saveQA(q, data.answer, farmer.domain||'General', farmer.email);
-    document.getElementById('question').value='';
-  } catch(err){
-    showError('ask-error','Could not get answer. Please try again. ('+err.message+')');
-  } finally{
-    btn.disabled=false;
-    loader.style.display='none';
+  if (q === "") {
+    showError("ask-error", "Please enter a question.");
+    return;
   }
+  hideError("ask-error");
+
+  let answer = "";
+
+  if (q.includes("rice")) {
+    answer = "For rice cultivation, use balanced NPK fertilizer, maintain proper irrigation, and remove weeds regularly.";
+  } else if (q.includes("wheat")) {
+    answer = "Apply urea during the tillering stage and irrigate the crop every 10–15 days.";
+  } else if (q.includes("tomato")) {
+    answer = "Spray a recommended fungicide and remove infected leaves to control diseases in tomato.";
+  } else if (q.includes("cotton")) {
+    answer = "Monitor pink bollworm regularly and use pheromone traps for effective pest management.";
+  } else if (q.includes("sugarcane")) {
+    answer = "Provide sufficient irrigation and apply nitrogen fertilizer in split doses.";
+  } else if (q.includes("maize")) {
+    answer = "Use certified hybrid seeds and apply fertilizer based on soil testing.";
+  } else if (q.includes("fertilizer")) {
+    answer = "Use fertilizers according to the soil test report. Excess fertilizer may reduce crop yield.";
+  } else if (q.includes("pest")) {
+    answer = "Use Integrated Pest Management (IPM) techniques and recommended pesticides.";
+  } else if (q.includes("irrigation")) {
+    answer = "Use drip irrigation to save water and improve crop productivity.";
+  } else if (q.includes("government")) {
+    answer = "Visit your nearest Agriculture Office to know about PM-KISAN and other government schemes.";
+  } else {
+    answer = "Sorry! I don't have information about this question. Please contact your nearest Agriculture Officer.";
+  }
+
+  const farmer = getCurrentFarmer();
+
+  saveQA(
+    document.getElementById("question").value,
+    answer,
+    farmer.domain || "General",
+    farmer.email
+  );
+
+  document.getElementById("question").value = "";
 }
 
 function saveQA(question,answer,domain,ownerEmail){
