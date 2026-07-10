@@ -386,4 +386,7 @@ Frontend Features
 - Advanced Yield Prediction
 - AI Chatbot for Farmers
 
+---
 
+## **Live Demo**
+ Try App here: https://ai-based-farmer-query-support-and-a-three.vercel.app/
