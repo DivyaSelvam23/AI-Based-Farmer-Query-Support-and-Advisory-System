@@ -390,3 +390,9 @@ Frontend Features
 
 ## **Live Demo**
  Try The App here: https://ai-based-farmer-query-support-and-a-three.vercel.app/
+
+
+ ---
+
+ ## **PROJECT EXPLANATION VIDEO**
+     https://drive.google.com/file/d/1DxFuiC7TmVHE4nYkvFAVJV_G0YOo-Yid/view?usp=sharing
