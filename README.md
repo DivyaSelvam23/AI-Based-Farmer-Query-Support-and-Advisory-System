@@ -395,4 +395,4 @@ Frontend Features
  ---
 
  ## **PROJECT EXPLANATION VIDEO**
-     https://drive.google.com/file/d/1DxFuiC7TmVHE4nYkvFAVJV_G0YOo-Yid/view?usp=sharing
+Click here: https://drive.google.com/file/d/1DxFuiC7TmVHE4nYkvFAVJV_G0YOo-Yid/view?usp=sharing
